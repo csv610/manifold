@@ -66,6 +66,39 @@ This fork adds CLI tools for the Manifold library:
 
 See [app/README.md](app/README.md) for detailed usage.
 
+## Manifold vs CGAL vs libigl
+
+| Aspect | Manifold | CGAL | libigl |
+|--------|---------|------|-------|
+| **Focus** | Solid modeling (watertight meshes) | General computational geometry | Geometry processing |
+| **Boolean Operations** | Robust, guaranteed manifold | Full support | Uses CGAL internally |
+| **Precision** | Double-precision internal | Exact predicates available | Depends on Eigen |
+| **Output** | Always manifold | Can fail on edge cases | Can fail on complex inputs |
+| **Dependencies** | Minimal (optional) | Heavy | Eigen + optional CGAL |
+| **License** | Apache 2.0 | GPL/commercial | GPL |
+
+### Key Distinctions of Manifold
+
+1. **Guaranteed Manifold Output** - Unlike CGAL/libigl, Manifold guarantees the output is always a valid watertight manifold mesh. This is particularly valuable for 3D printing and CAD.
+
+2. **Minimal Dependencies** - No required dependencies (zero by default). CGAL has many heavy dependencies.
+
+3. **Simpler API** - Like libigl, but with focus on solid objects rather than general triangle meshes.
+
+4. **SDF/Level Set Support** - Built-in implicit surface evaluation (LevelSet function).
+
+5. **2D CrossSection** - Integrated 2D polygon operations via Clipper2.
+
+6. **CLI Tools** - This fork adds ready-to-use command-line tools.
+
+7. **Vertex Properties** - Full support for arbitrary vertex properties for materials/textures.
+
+### When to Use What
+
+- **Manifold**: CAD, 3D printing, solid modeling where guaranteed manifold output is critical
+- **CGAL**: General computational geometry, exact arithmetic needed, complex 2D/3D algorithms
+- **libigl**: Geometry processing, research, visualization with Eigen integration
+
 ## Contributing
 
 Contributions are welcome! Please feel free to submit issues and pull requests.
