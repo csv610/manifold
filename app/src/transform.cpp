@@ -1,17 +1,21 @@
-#include <iostream>
-#include <fstream>
-#include <string>
 #include <manifold/manifold.h>
+
+#include <fstream>
+#include <iostream>
+#include <string>
 
 using namespace manifold;
 
 void help() {
-  std::cout << "Usage: manifold_transform <input.obj> [transforms...] [-o output.obj]\n\n";
+  std::cout << "Usage: manifold_transform <input.obj> [transforms...] [-o "
+               "output.obj]\n\n";
   std::cout << "Transforms:\n";
   std::cout << "  translate <x> <y> <z>     - Translate mesh\n";
   std::cout << "  scale <x> <y> <z>          - Scale mesh\n";
-  std::cout << "  rotate <x> <y> <z>         - Rotate in degrees (x, y, z axes)\n";
+  std::cout
+      << "  rotate <x> <y> <z>         - Rotate in degrees (x, y, z axes)\n";
   std::cout << "  mirror <x> <y> <z>         - Mirror across plane\n";
+  std::cout << "  tolerance <val>            - Set tolerance\n";
   std::cout << "\nOptions:\n";
   std::cout << "  -o <file>                  - Output OBJ file\n";
   std::cout << "  -info                     - Show mesh info\n";
@@ -34,8 +38,9 @@ void printInfo(const Manifold& m) {
   std::cout << "Surface area: " << m.SurfaceArea() << "\n";
   std::cout << "Genus: " << m.Genus() << "\n";
   Box bb = m.BoundingBox();
-  std::cout << "Bounding box: min(" << bb.min.x << "," << bb.min.y << "," << bb.min.z
-            << ") max(" << bb.max.x << "," << bb.max.y << "," << bb.max.z << ")\n";
+  std::cout << "Bounding box: min(" << bb.min.x << "," << bb.min.y << ","
+            << bb.min.z << ") max(" << bb.max.x << "," << bb.max.y << ","
+            << bb.max.z << ")\n";
 }
 
 int main(int argc, char* argv[]) {
@@ -50,7 +55,8 @@ int main(int argc, char* argv[]) {
 
   Manifold m = readObj(inputFile);
   if (m.Status() != Manifold::Error::NoError) {
-    std::cerr << "Error reading " << inputFile << ": " << (int)m.Status() << "\n";
+    std::cerr << "Error reading " << inputFile << ": " << (int)m.Status()
+              << "\n";
     return 1;
   }
 
@@ -81,6 +87,10 @@ int main(int argc, char* argv[]) {
       double y = std::stod(argv[++i]);
       double z = std::stod(argv[++i]);
       m = m.Mirror(vec3(x, y, z));
+    } else if (arg == "tolerance" && i + 1 < argc) {
+      double tol = std::stod(argv[++i]);
+      m = m.SetTolerance(tol);
+      std::cout << "Set tolerance to " << tol << "\n";
     } else {
       std::cerr << "Unknown option: " << arg << "\n";
       help();

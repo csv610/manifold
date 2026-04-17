@@ -60,6 +60,10 @@ add_executable(manifold_properties src/properties.cpp)
 target_link_libraries(manifold_properties PRIVATE manifold)
 target_compile_options(manifold_properties PRIVATE ${MANIFOLD_FLAGS})
 
+add_executable(manifold_meshid src/meshid.cpp)
+target_link_libraries(manifold_meshid PRIVATE manifold)
+target_compile_options(manifold_meshid PRIVATE ${MANIFOLD_FLAGS})
+
 if(MANIFOLD_CROSS_SECTION)
   add_executable(manifold_cross src/cross.cpp)
   target_link_libraries(manifold_cross PRIVATE manifold)
