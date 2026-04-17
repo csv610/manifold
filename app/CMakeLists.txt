@@ -56,6 +56,10 @@ add_executable(manifold_info src/info.cpp)
 target_link_libraries(manifold_info PRIVATE manifold)
 target_compile_options(manifold_info PRIVATE ${MANIFOLD_FLAGS})
 
+add_executable(manifold_properties src/properties.cpp)
+target_link_libraries(manifold_properties PRIVATE manifold)
+target_compile_options(manifold_properties PRIVATE ${MANIFOLD_FLAGS})
+
 if(MANIFOLD_CROSS_SECTION)
   add_executable(manifold_cross src/cross.cpp)
   target_link_libraries(manifold_cross PRIVATE manifold)
