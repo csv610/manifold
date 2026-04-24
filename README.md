@@ -43,6 +43,7 @@ ctest
 
 ## Documentation
 
+- [Student's Guide to Manifold Geometry](docs/UserGuide.md) - A comprehensive introduction for undergraduate students.
 - [C++ API](https://manifoldcad.org/docs/html/classmanifold_1_1_manifold.html)
 - [Algorithm Docs](https://github.com/elalish/manifold/wiki/Manifold-Library)
 
